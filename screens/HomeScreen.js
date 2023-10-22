@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, FlatList, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import {bballApiFunctions} from '../api/api';
 import PlayerPreview from '../components/PlayerPreview';
@@ -55,6 +62,7 @@ const HomeScreen = ({navigation}) => {
             placeholder="Search for a player"
             onChangeText={text => setSearchDelay(text)}
           />
+
           <FlatList
             data={players}
             keyExtractor={(item, index) => `${item.label}_${index}`}
