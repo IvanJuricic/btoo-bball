@@ -71,6 +71,9 @@ const PlayerDetailsScreen = ({route}) => {
             </View>
           </View>
           <Text style={styles.bio}>{player.strDescriptionEN}</Text>
+          <Text style={styles.infoText}>
+            Player data gathered from TheSportsDB public API
+          </Text>
         </View>
       ) : (
         <View>
@@ -84,7 +87,7 @@ const PlayerDetailsScreen = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2', // Lighter background color
+    backgroundColor: '#FA8320', // Lighter background color
   },
   contentContainer: {
     alignItems: 'center',
@@ -116,11 +119,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 16,
-    color: '#333', // Dark text color
+    color: 'black', // Orange text color
   },
   playerPosition: {
     fontSize: 18,
-    color: '#ff6600',
+    color: 'black', // Orange text color
   },
   statsContainer: {
     marginTop: 20,
@@ -132,16 +135,22 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontWeight: 'bold',
-    color: '#333',
+    color: '#ff6600', // Orange text color
   },
   statValue: {
-    color: '#333',
+    color: '#333', // Dark text color
   },
   bio: {
     marginTop: 20,
     fontSize: 16,
     lineHeight: 22,
-    color: '#333',
+    color: '#333', // Dark text color
+  },
+  infoText: {
+    marginTop: 16,
+    fontSize: 12,
+    color: '#666', // Gray text color
+    textAlign: 'center',
   },
 });
 

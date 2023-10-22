@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
         setPlayers(tmp);
       } else {
         let tmp = await bballApiFunctions.getPlayers();
-        //console.log('data => ', tmp);
+        // console.log('data => ', tmp);
         setPlayers(tmp);
       }
     };
@@ -79,7 +79,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1, // Change height to flex to occupy the entire screen
+    backgroundColor: 'rgba(255, 165, 0, 0.3)', // Lighter background color with some orange accents
   },
   text: {
     fontSize: 24,
@@ -89,14 +90,24 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'grey',
     marginBottom: 10,
     padding: 10,
     color: 'black',
+    backgroundColor: 'white', // Input background color
+    borderRadius: 5, // Rounded corners for the input box
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 3, // For Android shadow
   },
   listSearch: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FA8320',
     padding: 20,
   },
 });
