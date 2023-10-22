@@ -1,16 +1,6 @@
 import axios from 'axios';
+import {BALL_DONT_LIE_BASE_API, BALL_DONT_LIE_ENDPOINTS} from './constants';
 
-const BALL_DONT_LIE_BASE_API = 'https://www.balldontlie.io/api/v1';
-
-// Define API endpoints
-const BALL_DONT_LIE_ENDPOINTS = {
-  getPlayers: '/players',
-  getPlayer: '/players/{playerId}',
-  getTeams: '/teams',
-  getTeam: '/teams/{teamId}',
-};
-
-// Create an instance of Axios with custom settings, e.g., headers, authentication, etc.
 const bballApi = axios.create({
   baseURL: BALL_DONT_LIE_BASE_API,
   headers: {
@@ -23,7 +13,7 @@ export const bballApiFunctions = {
   getPlayers: async () => {
     try {
       const response = await bballApi.get(BALL_DONT_LIE_ENDPOINTS.getPlayers);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.log('Error retrieving players: ', error);
       throw error;
@@ -36,6 +26,21 @@ export const bballApiFunctions = {
         BALL_DONT_LIE_ENDPOINTS.getPlayer.replace('{playerId}', playerId),
       );
       return response.data;
+    } catch (error) {
+      console.log('Error retrieving player: ', error);
+      throw error;
+    }
+  },
+  searchPlayer: async playerName => {
+    try {
+      const response = await bballApi.get(
+        BALL_DONT_LIE_ENDPOINTS.searchPlayer.replace(
+          '{playerName}',
+          playerName,
+        ),
+      );
+      console.log('res => ', response.data);
+      return response.data.data;
     } catch (error) {
       console.log('Error retrieving player: ', error);
       throw error;
