@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
+import PlayerDetailsScreen from '../screens/PlayerDetailsScreen';
 import SplashScreen from '../screens/SplashScreen';
 
 const Stack = createNativeStackNavigator();
@@ -20,8 +20,8 @@ const CustomNavigator = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
+        name="PlayerDetails"
+        component={PlayerDetailsScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

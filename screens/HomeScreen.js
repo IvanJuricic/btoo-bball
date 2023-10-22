@@ -61,7 +61,7 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => (
               <PlayerPreview
                 player={item}
-                onPress={() => navigation.navigate('Details', {item})}
+                onPress={() => navigation.navigate('PlayerDetails', {item})}
               />
             )}
           />

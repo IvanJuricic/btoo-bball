@@ -1,8 +1,20 @@
 import axios from 'axios';
-import {BALL_DONT_LIE_BASE_API, BALL_DONT_LIE_ENDPOINTS} from './constants';
+import {
+  BALL_DONT_LIE_BASE_API,
+  BALL_DONT_LIE_ENDPOINTS,
+  SPORTS_DB_BASE_API,
+  SPORTS_DB_ENDPOINTS,
+} from './constants';
 
 const bballApi = axios.create({
   baseURL: BALL_DONT_LIE_BASE_API,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+const sportsDBApi = axios.create({
+  baseURL: SPORTS_DB_BASE_API,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -64,6 +76,23 @@ export const bballApiFunctions = {
       return response.data;
     } catch (error) {
       console.log('Error retrieving team: ', error);
+      throw error;
+    }
+  },
+};
+
+export const sportsDBApiFunctions = {
+  searchPlayer: async playerName => {
+    try {
+      const response = await sportsDBApi.get(
+        SPORTS_DB_ENDPOINTS.getPlayerDetails.replace(
+          '{playerName}',
+          playerName,
+        ),
+      );
+      return response.data;
+    } catch (error) {
+      console.log('Error retrieving player: ', error);
       throw error;
     }
   },
