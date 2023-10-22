@@ -20,9 +20,11 @@ const PlayerDetailsScreen = ({route}) => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}>
       {player !== null ? (
-        <View>
+        <View style={styles.imageContainer}>
           {player.strThumb ? (
             <Image source={{uri: player.strCutout}} style={styles.image} />
           ) : (
@@ -79,27 +81,46 @@ const PlayerDetailsScreen = ({route}) => {
   );
 };
 
-export default PlayerDetailsScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f2f2f2', // Lighter background color
+  },
+  contentContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 16,
-    backgroundColor: 'orange',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
   },
   image: {
-    width: '100%',
-    height: 400,
-    resizeMode: 'cover',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
   },
   playerName: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 16,
+    color: '#333', // Dark text color
   },
   playerPosition: {
     fontSize: 18,
-    color: 'gray',
+    color: '#ff6600',
   },
   statsContainer: {
     marginTop: 20,
@@ -111,16 +132,17 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontWeight: 'bold',
-    color: 'black',
+    color: '#333',
   },
   statValue: {
-    color: 'black',
+    color: '#333',
   },
   bio: {
     marginTop: 20,
     fontSize: 16,
     lineHeight: 22,
-    padding: 10,
-    marginBottom: 15,
+    color: '#333',
   },
 });
+
+export default PlayerDetailsScreen;
