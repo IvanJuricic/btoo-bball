@@ -6,7 +6,7 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.title}>
         Choose whether you want to explore best basketball players or random
-        Rick And Morty information
+        Rick And Morty characters information
       </Text>
       <TouchableOpacity
         style={styles.button}

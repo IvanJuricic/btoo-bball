@@ -1,14 +1,22 @@
 import React, {useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 export default function SplashScreen({navigation}) {
-  useEffect(() => {
-    setTimeout(() => navigation.navigate('Home'), 4000);
-  }, []);
+  const onAnimationEnd = () => {
+    navigation.replace('Home');
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>SplashScreen</Text>
+      <Animatable.Text
+        animation="zoomIn"
+        style={styles.title}
+        duration={3000}
+        onAnimationEnd={onAnimationEnd} // Callback when the animation is completed
+      >
+        Rick'n'Morty Basketball Universe
+      </Animatable.Text>
     </View>
   );
 }
@@ -18,10 +26,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FA8320',
   },
-  text: {
-    fontSize: 24,
+  title: {
+    fontSize: 28,
     fontWeight: 'bold',
-    color: 'black',
+    color: '#fffe',
+    marginVertical: 10,
+    textAlign: 'center',
+    padding: 20,
   },
 });
