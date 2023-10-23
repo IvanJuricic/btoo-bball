@@ -10,10 +10,10 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {bballApiFunctions} from '../api/api';
 import PlayerPreview from '../components/PlayerPreview';
 import {debounce} from '../utils/helper';
+import CustomLoading from '../components/CustomLoading';
 
 const HomeScreen = ({navigation}) => {
   const [players, setPlayers] = useState([]);
-  const [playerName, setPlayerName] = useState('');
   const [query, setQuery] = useState('');
 
   const setSearchDelay = useCallback(
@@ -56,6 +56,9 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.container}>
       {players ? (
         <View style={styles.listSearch}>
+          <Text style={styles.title}>
+            Search for your favourite NBA player, e.g. LeBron James
+          </Text>
           <TextInput
             style={styles.input}
             placeholderTextColor="lightgrey"
@@ -75,9 +78,7 @@ const HomeScreen = ({navigation}) => {
           />
         </View>
       ) : (
-        <View style={styles.container}>
-          <Text style={styles.text}>Loading....</Text>
-        </View>
+        <CustomLoading />
       )}
     </View>
   );
@@ -94,6 +95,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fffe',
+    marginVertical: 10,
+    textAlign: 'center',
   },
   input: {
     fontSize: 16,

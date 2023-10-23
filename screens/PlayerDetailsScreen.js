@@ -2,19 +2,29 @@ import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {sportsDBApiFunctions} from '../api/api';
 
+import CustomLoading from '../components/CustomLoading';
+
 const placeholderImage = require('../assets/avatar.jpg'); // Import a placeholder image
 
 const PlayerDetailsScreen = ({route}) => {
   const {item} = route.params;
-  let playerName = `${item.first_name} ${item.last_name}`;
 
   const [player, setPlayer] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getPlayerData = async () => {
-      await sportsDBApiFunctions.searchPlayer(playerName).then(res => {
-        setPlayer(res.player[0]);
-        console.log('player set => ', res);
-      });
+      if (item !== null) {
+        let playerName = `${item.first_name} ${item.last_name}`;
+        try {
+          await sportsDBApiFunctions.searchPlayer(playerName).then(res => {
+            setPlayer(res.player[0]);
+            setLoading(false);
+          });
+        } catch (err) {
+          setPlayer(null);
+          setLoading(false);
+        }
+      }
     };
     getPlayerData();
   }, []);
@@ -23,9 +33,10 @@ const PlayerDetailsScreen = ({route}) => {
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}>
-      {player !== null ? (
+      {loading && <CustomLoading />}
+      {loading === false && player && (
         <View style={styles.imageContainer}>
-          {player.strThumb ? (
+          {player.strCutout !== null ? (
             <Image source={{uri: player.strCutout}} style={styles.image} />
           ) : (
             <Image source={placeholderImage} style={styles.image} />
@@ -75,10 +86,9 @@ const PlayerDetailsScreen = ({route}) => {
             Player data gathered from TheSportsDB public API
           </Text>
         </View>
-      ) : (
-        <View>
-          <Text>Loading....</Text>
-        </View>
+      )}
+      {loading === false && !player && (
+        <Text style={styles.noData}>No data for this player</Text>
       )}
     </ScrollView>
   );
@@ -150,6 +160,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 12,
     color: '#666', // Gray text color
+    textAlign: 'center',
+  },
+  noData: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fffe',
+    marginVertical: 10,
     textAlign: 'center',
   },
 });

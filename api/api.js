@@ -1,7 +1,18 @@
 import axios from 'axios';
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  useQuery,
+  gql,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
+
 import {
   BALL_DONT_LIE_BASE_API,
   BALL_DONT_LIE_ENDPOINTS,
+  RICK_AND_MORTY_GRAPHQL_BASE_API,
   SPORTS_DB_BASE_API,
   SPORTS_DB_ENDPOINTS,
 } from './constants';
@@ -93,6 +104,49 @@ export const sportsDBApiFunctions = {
       return response.data;
     } catch (error) {
       console.log('Error retrieving player: ', error);
+      throw error;
+    }
+  },
+};
+
+export const rickAndMortyApiFunctions = {
+  fetchRickCharacter: async () => {
+    try {
+      const httpLink = createHttpLink({
+        uri: RICK_AND_MORTY_GRAPHQL_BASE_API,
+      });
+
+      const authLink = setContext((_, {headers}) => {
+        // Add any necessary headers here, if required.
+        return {
+          headers: {
+            ...headers,
+            // Add headers as needed...
+          },
+        };
+      });
+
+      const client = new ApolloClient({
+        link: authLink.concat(httpLink),
+        cache: new InMemoryCache(),
+      });
+
+      const {data} = await client.query({
+        query: gql`
+          query {
+            characters(filter: {name: "rick"}) {
+              results {
+                name
+                image
+              }
+            }
+          }
+        `,
+      });
+
+      return data;
+    } catch (error) {
+      console.log('Error fetching data from GraphQL:', error);
       throw error;
     }
   },

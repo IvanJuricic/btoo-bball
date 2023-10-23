@@ -1,5 +1,7 @@
 export const BALL_DONT_LIE_BASE_API = 'https://www.balldontlie.io/api/v1';
 export const SPORTS_DB_BASE_API = 'https://www.thesportsdb.com/api/v1/json/3';
+export const RICK_AND_MORTY_GRAPHQL_BASE_API =
+  'https://rickandmortyapi.com/graphql';
 
 export const BALL_DONT_LIE_ENDPOINTS = {
   getPlayers: '/players',
