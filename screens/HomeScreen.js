@@ -1,100 +1,48 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useEffect, useState, useCallback} from 'react';
-import {bballApiFunctions} from '../api/api';
-import PlayerPreview from '../components/PlayerPreview';
-import {debounce} from '../utils/helper';
-import CustomLoading from '../components/CustomLoading';
+import React from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 const HomeScreen = ({navigation}) => {
-  const [players, setPlayers] = useState([]);
-  const [query, setQuery] = useState('');
-
-  const setSearchDelay = useCallback(
-    debounce(q => {
-      setQuery(q);
-    }, 100),
-    [],
-  );
-
-  useEffect(() => {
-    const get_players = async () => {
-      if (query !== '') {
-        let tmp = await bballApiFunctions.searchPlayer(query);
-        setPlayers(tmp);
-      } else {
-        let tmp = await bballApiFunctions.getPlayers();
-        // console.log('data => ', tmp);
-        setPlayers(tmp);
-      }
-    };
-    get_players();
-  }, []);
-
-  useEffect(() => {
-    const autocomplete = async () => {
-      if (query === '') {
-        return;
-      }
-      try {
-        let tmp = await bballApiFunctions.searchPlayer(query);
-        setPlayers(tmp);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    autocomplete();
-  }, [query]);
-
   return (
     <View style={styles.container}>
-      {players ? (
-        <View style={styles.listSearch}>
-          <Text style={styles.title}>
-            Search for your favourite NBA player, e.g. LeBron James
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="lightgrey"
-            placeholder="Search for a player"
-            onChangeText={text => setSearchDelay(text)}
-          />
+      <Text style={styles.title}>
+        Choose whether you want to explore best basketball players or random
+        Rick And Morty information
+      </Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('PlayerSearch')}>
+        <Text style={styles.buttonText}>Basketball</Text>
+      </TouchableOpacity>
 
-          <FlatList
-            data={players}
-            keyExtractor={(item, index) => `${item.label}_${index}`}
-            renderItem={({item}) => (
-              <PlayerPreview
-                player={item}
-                onPress={() => navigation.navigate('PlayerDetails', {item})}
-              />
-            )}
-          />
-        </View>
-      ) : (
-        <CustomLoading />
-      )}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('RickAndMorty')}>
+        <Text style={styles.buttonText}>Rick and Morty</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default HomeScreen;
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Change height to flex to occupy the entire screen
-    backgroundColor: 'rgba(255, 165, 0, 0.3)', // Lighter background color with some orange accents
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FA8320',
   },
-  text: {
-    fontSize: 24,
+  button: {
+    backgroundColor: '#fffe',
+    width: '90%', // Set the width as needed
+    height: '10%', // Set the height as needed
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderRadius: 10, // Optional: Add rounded corners
+  },
+  buttonText: {
+    color: 'darkgrey',
+    fontSize: 18,
     fontWeight: 'bold',
-    color: 'black',
   },
   title: {
     fontSize: 24,
@@ -103,27 +51,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textAlign: 'center',
   },
-  input: {
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: 'grey',
-    marginBottom: 10,
-    padding: 10,
-    color: 'black',
-    backgroundColor: 'white', // Input background color
-    borderRadius: 5, // Rounded corners for the input box
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    elevation: 3, // For Android shadow
-  },
-  listSearch: {
-    flex: 1,
-    backgroundColor: '#FA8320',
-    padding: 20,
-  },
 });
+
+export default HomeScreen;

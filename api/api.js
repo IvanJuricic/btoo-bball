@@ -117,11 +117,9 @@ export const rickAndMortyApiFunctions = {
       });
 
       const authLink = setContext((_, {headers}) => {
-        // Add any necessary headers here, if required.
         return {
           headers: {
             ...headers,
-            // Add headers as needed...
           },
         };
       });
@@ -131,12 +129,19 @@ export const rickAndMortyApiFunctions = {
         cache: new InMemoryCache(),
       });
 
+      const maxPageCount = 20;
+      const randomPage = Math.floor(Math.random() * maxPageCount) + 1;
+
+      const maxCharacterCount = 10;
+      const randomCharacter = Math.floor(Math.random() * maxCharacterCount) + 1;
+
       const {data} = await client.query({
         query: gql`
           query {
-            characters(filter: {name: "rick"}) {
+            characters (page: ${randomPage}) {
               results {
                 name
+                species
                 image
               }
             }
@@ -144,7 +149,7 @@ export const rickAndMortyApiFunctions = {
         `,
       });
 
-      return data;
+      return data.characters.results[randomCharacter];
     } catch (error) {
       console.log('Error fetching data from GraphQL:', error);
       throw error;
