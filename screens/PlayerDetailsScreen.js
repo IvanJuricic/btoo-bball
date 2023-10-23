@@ -17,7 +17,10 @@ const PlayerDetailsScreen = ({route}) => {
         let playerName = `${item.first_name} ${item.last_name}`;
         try {
           await sportsDBApiFunctions.searchPlayer(playerName).then(res => {
-            setPlayer(res.player[0]);
+            const bballPlayer = res.player.filter(
+              p => p.strSport === 'Basketball',
+            );
+            setPlayer(bballPlayer[0]);
             setLoading(false);
           });
         } catch (err) {

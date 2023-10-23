@@ -62,7 +62,6 @@ export const bballApiFunctions = {
           playerName,
         ),
       );
-      console.log('res => ', response.data);
       return response.data.data;
     } catch (error) {
       console.log('Error retrieving player: ', error);
