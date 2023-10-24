@@ -8,13 +8,13 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import CustomNavigator from './navigation/Navigator';
+import CustomTabNavigator from './navigation/TabNavigator';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <CustomNavigator />
+        <CustomTabNavigator />
       </NavigationContainer>
     </SafeAreaView>
   );

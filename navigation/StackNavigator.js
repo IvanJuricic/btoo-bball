@@ -8,7 +8,7 @@ import RickAndMortyScreen from '../screens/RickAndMortyScreen';
 
 const Stack = createNativeStackNavigator();
 
-const CustomNavigator = () => {
+const CustomStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
@@ -40,4 +40,4 @@ const CustomNavigator = () => {
   );
 };
 
-export default CustomNavigator;
+export default CustomStackNavigator;
