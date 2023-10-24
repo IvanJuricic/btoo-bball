@@ -10,12 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const CustomStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash">
-      <Stack.Screen
-        name="Splash"
-        component={SplashScreen}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={HomeScreen}

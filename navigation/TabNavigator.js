@@ -12,9 +12,15 @@ const CustomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#f0edf6"
-      inactiveColor="#3e2465"
-      barStyle={{backgroundColor: '#694fad'}}>
+      activeColor="#3e2465"
+      inactiveColor="#f0edf6"
+      barStyle={{
+        borderWidth: 0.5,
+        borderBottomWidth: 1,
+        backgroundColor: '#fffe',
+        borderColor: 'transparent',
+        overflow: 'hidden',
+      }}>
       <Tab.Screen
         name="Main"
         component={CustomStackNavigator}
@@ -29,7 +35,7 @@ const CustomTabNavigator = () => {
         name="Info"
         component={HardcodedInfoScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Info',
           tabBarIcon: () => {
             return InfoIcon;
           },

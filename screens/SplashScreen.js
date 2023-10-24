@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 
 export default function SplashScreen({navigation}) {
   const onAnimationEnd = () => {
-    navigation.replace('Home');
+    navigation.replace('Content');
   };
 
   return (

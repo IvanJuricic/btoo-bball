@@ -1,20 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import CustomTabNavigator from './navigation/TabNavigator';
+import InitialStackNavigator from './navigation/InitialNavigator';
 
 function App(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <CustomTabNavigator />
+        <InitialStackNavigator />
       </NavigationContainer>
     </SafeAreaView>
   );
